@@ -1,5 +1,4 @@
-FROM python:3.10-slim
-
+FROM python:3.12-slim
 # Instalar Tesseract OCR y dependencias del sistema
 RUN apt-get update && apt-get install -y \
     tesseract-ocr \
