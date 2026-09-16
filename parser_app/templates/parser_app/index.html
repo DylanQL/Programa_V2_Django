@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procesador de Facturas</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: auto; background-color: #f4f4f9; }
+        .card { background: white; border: 1px solid #ccc; padding: 25px; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .btn { padding: 10px 15px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        .btn:hover { background: #0056b3; }
+        hr { border: 0; height: 1px; background: #ddd; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+    <h1>Gestor de PDFs: Facturas y ST</h1>
+
+    <!-- Funcionalidad 1 -->
+    <div class="card">
+        <h2>Funcionalidad 1: Separar y Renombrar (con OCR)</h2>
+        <p>Sube el PDF principal. El sistema lo dividirá página por página, leerá el texto (RUC y Factura) y descargará un ZIP con los archivos renombrados.</p>
+        <form action="{% url 'func1' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div style="margin-bottom: 15px;">
+                <input type="file" name="documento_principal" accept="application/pdf" required>
+            </div>
+            <button type="submit" class="btn">Ejecutar Funcionalidad 1</button>
+        </form>
+    </div>
+
+    <!-- Funcionalidad 2 -->
+    <div class="card">
+        <h2>Funcionalidad 2: Hacer Match y Unir</h2>
+        <p>Sube los PDFs individuales (los que generaste en el paso 1). El sistema leerá sus nombres, unirá Factura + ST en un solo archivo "REFORMAS", y te devolverá un ZIP.</p>
+        <form action="{% url 'func2' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div style="margin-bottom: 15px;">
+                <!-- El atributo multiple permite seleccionar varios archivos a la vez -->
+                <input type="file" name="documentos_separados" accept="application/pdf" multiple required>
+            </div>
+            <button type="submit" class="btn" style="background: #28a745;">Ejecutar Funcionalidad 2</button>
+        </form>
+    </div>
+
+</body>
+</html>
